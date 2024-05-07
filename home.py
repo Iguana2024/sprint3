@@ -1,25 +1,11 @@
 import time
 from flask import Flask
-import redis
 import pymongo
 from pymongo import MongoClient
 
 app = Flask(__name__)
 
-cache = redis.Redis(host='redis', port=6379)
-
 mongo_client = MongoClient('mongodb://flask:flask@mongodb:27017/flask')
-
-def get_hit_count():
-    retries = 5
-    while True:
-        try:
-            return cache.incr('hits')
-        except redis.exceptions.ConnectionError as exc:
-            if retries == 0:
-                raise exc
-            retries -= 1
-            time.sleep(0.5)
 
 def test_mongo_connection():
     try:
@@ -30,8 +16,7 @@ def test_mongo_connection():
 
 @app.route('/')
 def hello():
-    count = get_hit_count()
-    return f'Hello from root. Redis hits: {count}'
+    return f'Hello from root.'
 
 @app.route('/db')
 def db():
