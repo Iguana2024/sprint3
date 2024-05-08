@@ -15,7 +15,7 @@ services:
       - ./certs:/etc/letsencrypt
 
   web:
-    container_name: app
+    container_name: web
     build: .
     ports:
       - "90:5000"
