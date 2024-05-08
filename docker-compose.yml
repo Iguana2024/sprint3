@@ -11,8 +11,8 @@ services:
 
   mongodb:
     image: dannyben/alpine-mongo:latest
-    ports:
-      - '27017:27017'
+    expose:
+      - '27017'
     volumes:
       - ./mongo_data:/data/db
 
