@@ -10,7 +10,7 @@ services:
     volumes:
       - ./nginx-conf/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx-conf/proxy_params:/etc/nginx/proxy_params
-      - ./nginx-conf/data/sites-enabled:/etc/nginx/sites-enabled
+      - ./nginx-conf/sites-enabled:/etc/nginx/sites-enabled
       - ./data/www:/var/www
       - ./certs:/etc/letsencrypt
 
