@@ -1,6 +1,19 @@
-version: '3'
+version: '3.8'
 
 services:
+  nginx:
+    image: nginx:1.19.7-alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx-conf/proxy_params:/etc/nginx/proxy_params
+      - ./nginx-conf/data/sites-enabled:/etc/nginx/sites-enabled
+      - ./data/www:/var/www
+      - ./certs:/etc/letsencrypt
+
   web:
     container_name: app
     build: .
@@ -15,5 +28,3 @@ services:
       - '27017'
     volumes:
       - ./mongo_data:/data/db
-
-
