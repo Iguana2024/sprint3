@@ -7,6 +7,9 @@
 * [How It Works](#howitworks)
 * [Setup Instructions](#setupinstructions)
 * [Usage](#usage)
+* [Documentation](#documentation)
+* [Contributing](#contributing)
+* [Credits](#credits)
 
 ## Overview
 This simple web application allows visitors to make a decision whether to share their data or not. Users are presented with two clear options: "Grant" or "Reject".
@@ -63,5 +66,18 @@ docker-compose up --build
 ## Usage
 
 ## Documentation
+
+## Contributing
+1. Fork the repository.
+2. Create a new branch: 
+```
+git checkout -b new-feature
+```
+3. Make your changes.
+4. Push your branch: 
+```
+git push origin new-feature
+```
+5. Create a pull request.
 
 ## Credits
