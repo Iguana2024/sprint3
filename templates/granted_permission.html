@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Granted Permission</title>
 </head>
@@ -11,7 +12,7 @@
     <br>
     <div id="data-list"></div>
     <br>
-    <a href="#" id="erase-data">Erase Data</a>
+    <a href="/erase_data">Erase Data</a>
     <script>
         function getData() {
             $.get('/get_data', function (data) {
@@ -25,9 +26,7 @@
                         $('#data-list').append('<p>Description: ' + permission.description + '</p>');
                         $('#data-list').append('<hr>');
                     });
-                    // AI Generated
                     $('#form-container').hide();
-                    // End AI Generated
                 }
             });
         }
@@ -41,10 +40,8 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         $('#message').text(response.message);
-                        // AI Generated
                         $('#form-container').hide();
                         $('#message').show();
-                        // End AI Generated
                         getData();
                     },
                     error: function (error) {
@@ -56,14 +53,13 @@
             $('#erase-data').click(function (event) {
                 event.preventDefault();
                 $.get('/erase_data', function (response) {
-                    // AI Generated
                     $('#form-container').show();
                     $('#message').hide();
-                    // End AI Generated
                     $('#data-list').empty();
                 });
             });
         });
     </script>
 </body>
+</html>
 </html>
