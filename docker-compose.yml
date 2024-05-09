@@ -3,6 +3,8 @@ version: '3.8'
 services:
   nginx:
     image: nginx:1.19.7-alpine
+    networks:
+      - front
     container_name: nginx
     ports:
       - "80:80"
@@ -17,14 +19,25 @@ services:
   web:
     container_name: web
     build: .
-    ports:
-      - "90:5000"
+    networks:
+      - front
+      - back
+    expose:
+      - "5000"
     depends_on:
       - mongodb
 
   mongodb:
     image: dannyben/alpine-mongo:latest
+    networks:
+      - back
     expose:
       - '27017'
     volumes:
       - ./mongo_data:/data/db
+
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: bridge
