@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Granted Permission</title>
+</head>
+<body>
+    <h1>Granted Permission Page</h1>
+    <p>You have granted permission to store your data.</p>
+    <br>
+    <div id="data-list"></div>
+    <br>
+    <a href="/erase_data">Erase Data</a>
+    <script>
+        function getData() {
+            $.get('/get_data', function (data) {
+                $('#data-list').empty();
+                if (data.permission_data.length > 0) {
+                    $('#data-list').append('<h2>Permission Data</h2>');
+                    data.permission_data.forEach(function (permission) {
+                        $('#data-list').append('<p>ID: ' + permission.ID + '</p>');
+                        $('#data-list').append('<p>IP: ' + permission.IP + '</p>');
+                        $('#data-list').append('<p>Date and Time: ' + permission.datetime + '</p>');
+                        $('#data-list').append('<p>Description: ' + permission.description + '</p>');
+                        $('#data-list').append('<hr>');
+                    });
+                    $('#form-container').hide();
+                }
+            });
+        }
+        $(document).ready(function () {
+            getData();
+            $('#data-form').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/process',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        $('#message').text(response.message);
+                        $('#form-container').hide();
+                        $('#message').show();
+                        getData();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $('#erase-data').click(function (event) {
+                event.preventDefault();
+                $.get('/erase_data', function (response) {
+                    $('#form-container').show();
+                    $('#message').hide();
+                    $('#data-list').empty();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Rejected Permission</title>
+</head>
+<body>
+    <p>You have rejected permission to store your data.</p>
+    <div id="data-list"></div>
+    <br>
+    <a href="/erase_data">Erase Data</a>
+    <script>
+      function getData() {
+          $.get('/get_data', function (data) {
+              $('#data-list').empty();
+              
+              if (data.rejection_data.length > 0) {
+                  $('#data-list').append('<h2>Rejection Details:</h2>');
+                  data.rejection_data.forEach(function (rejection) {
+                      $('#data-list').append('<p>Date and Time: ' + rejection.datetime + '</p>');
+                      $('#data-list').append('<p>Hashed ip: ' + rejection.hashed_ip + '</p>');
+                      $('#data-list').append('<p>ID: ' + rejection.ID + '</p>');
+                      $('#data-list').append('<p>Description: ' + rejection.description + '</p>');
+                      $('#data-list').append('<hr>');
+                  });
+                  $('#form-container').hide();
+              }
+          });
+      }
+      $(document).ready(function () {
+          getData();
+          $('#data-form').submit(function (event) {
+              event.preventDefault();
+              $.ajax({
+                  type: 'POST',
+                  url: '/process',
+                  data: $(this).serialize(),
+                  success: function (response) {
+                      $('#message').text(response.message);
+                      $('#form-container').hide();
+                      $('#message').show();
+                      getData();
+                  },
+                  error: function (error) {
+                      console.log(error);
+                  }
+              });
+          });
+          $('#erase-data').click(function (event) {
+              event.preventDefault();
+              $.get('/erase_data', function (response) {
+                  $('#form-container').show();
+                  $('#message').hide();
+                  $('#data-list').empty();
+              });
+          });
+      });
+  </script>
+</body>
+</html>
