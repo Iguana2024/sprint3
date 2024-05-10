@@ -23,10 +23,7 @@
 * [Credits](#credits)
 
 ## Introduction
-Welcome to the IGD Application! This web application provides a simple yet effective solution for users to manage their data sharing preferences securely. Whether you're a developer looking to understand the inner workings of the application, an end-user seeking to control how your data is stored and processed, or a website/web platform owner interested in integrating data sharing options, this README will guide you through the key aspects of the project.
-
-### Purpose
-The purpose of the IGD Application is to offer users a user-friendly solution for making decisions about data sharing. By presenting clear options to grant or reject permission for data storage, the application allows users to maintain control over their personal information.
+Welcome to the IGD Application! The purpose of the IGD Application is to offer users a user-friendly solution for making decisions about data sharing. By presenting clear options to grant or reject permission for data storage, the application allows users to maintain control over their personal information.
 
 ### Target Audience
 - **Developers** are interested in exploring the codebase, contributing to the project, or integrating the application with other systems.
@@ -38,6 +35,8 @@ The purpose of the IGD Application is to offer users a user-friendly solution fo
 - **Transparent handling** of user decisions, ensuring GDPR compliance and accountability.
 - **Secure storage** and retrieval of user data using MongoDB and Redis.
 - **Easy-to-use interface** for managing data sharing preferences.
+
+This Documentation will guide you through the key aspects of the project.
 
 ## Overview
 The IGD Application allows visitors to make informed decisions about sharing their data. Users are presented with two clear options: "Grant" or "Reject".
