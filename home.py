@@ -1,28 +1,49 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
+import pymongo
 from pymongo import MongoClient
 import hashlib
 import datetime
+import uuid
+import os
+import redis
+import json  
+
+
+redis_host = os.getenv('REDIS_HOST', 'localhost')
+redis_db = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
 
 app = Flask(__name__)
-client = MongoClient('mongodb://localhost:27017/')
-db = client['data_storage']
+mongo_client = MongoClient('mongodb://mongodb:27017/')
+db = mongo_client['data_storage']
 permissions = db['permissions']
 rejections = db['rejections']
-counter = db['counter']
 
+def test_mongo_connection():
+    try:
+        info = mongo_client.server_info()
+        return True, info
+    except pymongo.errors.ServerSelectionTimeoutError as err:
+        return False, str(err)
 
-if counter.count_documents({}) == 0:
-    counter.insert_one({'count': 1})
+def hash_ip(ip):
+    salt = "5gz"
+    hash_ip_salt = ip + salt
+    hashed_ip = hashlib.md5(hash_ip_salt.encode()).hexdigest()
+    return hashed_ip        
 
-def generate_id():
-    count = counter.find_one()['count']
-    counter.update_one({}, {'$inc': {'count': 1}})
-    return count
+def check_user_permission(ip):
+    permission = permissions.find_one({'IP': ip})
+    return permission
+
+def check_user_rejection(ip):
+    hashed_ip = hash_ip(ip)
+    rejection = rejections.find_one({'hashed_IP': hashed_ip})
+    return rejection
 
 def get_user_decision(ip):
-    if permissions.find_one({'IP': ip}):
+    if check_user_permission(ip):
         return 'granted'
-    elif rejections.find_one({'hashed_ip': hashlib.sha256(ip.encode()).hexdigest()}):
+    elif check_user_rejection(ip):
         return 'rejected'
     else:
         return None
@@ -39,28 +60,69 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
+    existing_permission = check_user_permission(request.remote_addr)
+    if existing_permission:
+        return redirect(url_for('granted_permission'))
+    existing_reject = check_user_rejection(request.remote_addr)
+    if existing_reject:
+        return redirect(url_for('rejected_permission'))
     if request.form.get('grant'):
-        permission = {
-            'ID': generate_id(),
-            'IP': request.remote_addr,
-            'datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        unique_id = str(uuid.uuid4())
+        ip = request.remote_addr
+        datetime_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        permission_data = {
+            'id': unique_id[:5],
+            'ip': ip,
+            'datetime': datetime_now,
             'description': 'Granted access'
         }
-        permissions.insert_one(permission)
+        permissions.insert_one({
+            'ID': unique_id,
+            'IP': ip,
+            'datetime': datetime_now,
+            'description': 'Granted access'
+        })
+        #Used GPT for using j.dumps
+        redis_db.set(f"Granted:{unique_id}:{ip}:{datetime_now}", json.dumps(permission_data))
         return redirect(url_for('granted_permission'))
     elif request.form.get('reject'):
-        hashed_ip = hashlib.sha256(request.remote_addr.encode()).hexdigest()
-        rejection = {
-            'hashed_ip': hashed_ip
+        unique_id = str(uuid.uuid4())
+        hashed_ip = hash_ip(request.remote_addr)
+        datetime_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        rejection_data = {
+            'id': unique_id[:5],
+            'hashed_ip': hashed_ip,
+            'datetime': datetime_now,
+            'description': 'Rejected access'
         }
-        rejections.insert_one(rejection)
+        rejections.insert_one({
+            'ID': unique_id,
+            'hashed_IP': hashed_ip,
+            'datetime': datetime_now,
+            'description': 'Rejected access'
+        })
+        redis_db.set(f"Rejected:{unique_id}:{hashed_ip}:{datetime_now}", json.dumps(rejection_data))
         return redirect(url_for('rejected_permission'))
 
 @app.route('/erase_data')
 def erase_data():
-    permissions.delete_many({})
-    rejections.delete_many({})
+    ip = request.remote_addr
+    hashed_ip = hash_ip(ip)
+    user_decision = get_user_decision(ip)
+
+    if user_decision == 'granted':
+        keys = redis_db.keys(f"Granted:*:{ip}:*")
+        permissions.delete_many({'IP': ip})
+    elif user_decision == 'rejected':
+        keys = redis_db.keys(f"Rejected:*:{hashed_ip}:*")
+        rejections.delete_many({'hashed_IP': hashed_ip})
+    else:
+        keys = []
+    for key in keys:
+        redis_db.delete(key)
     return redirect(url_for('index'))
+
+
 
 @app.route('/granted_permission')
 def granted_permission():
@@ -76,5 +138,13 @@ def get_data():
     rejection_data = list(rejections.find({}, {'_id': 0}))
     return jsonify(permission_data=permission_data, rejection_data=rejection_data)
 
+@app.route('/db')
+def db():
+    success, info = test_mongo_connection()
+    if success:
+        return f'MongoDB Server Info: {info}'
+    else:
+        return f'Failed to connect to MongoDB: {info}'
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
