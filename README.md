@@ -94,6 +94,20 @@ docker-compose up --build
   - rejected_permission.html (template is displayed when a user rejects permission to store their data).
 
 ## Troubleshooting Guide
+- **application not accessible:**
+  - Docker container not running
+  - port conflict
+
+- **database connection issues:**
+  - incorrect database configuration
+  - network connectivity
+
+- **SSL/TLS certificate issues:**
+  - invalid or expired certificate
+  - misconfigured nginx
+
+- **data processing errors:**
+  - incorrect data handling
 
 ## Contributing
 1. Fork the repository.
