@@ -38,17 +38,16 @@ This simple web application allows visitors to make a decision whether to share 
 IGD Data Storage requires Docker Engine`s latest version
 
 ## Architecture Diagram
-
+![image](https://github.com/Iguana2024/sprint3/assets/168120052/d5aad07d-f199-4c28-9cb5-0fdf067e938d)
 
 ## Usage
 - Visit the main page.
 - Choose "Grant" or "Reject" to grant or reject permission to store your data.
 - If "Grant" is selected, your details will be stored in the database and displayed on subsequent visits.
-
 - If "Reject" is selected, your IP address will be hashed and stored in the database. On subsequent visits, if the hashed IP matches, a rejection message will be displayed.
 - Use the "Erase Data" link to remove granted permission or rejection and return to the main page. <br>
 
-
+![image](https://github.com/Iguana2024/sprint3/assets/168120052/4683639e-d566-407f-93f2-616e99aa014a)
 
 ## Setup Instructions
 1. Clone the repository:
@@ -78,7 +77,7 @@ sudo systemctl status docker
 docker-compose up --build
 ```
 
-4. Access the application in a web browser at `https://localhost:90`
+4. Access the application in a web browser at `http://localhost`
 
 ## Understanding Codebase
 - **home.py:**
