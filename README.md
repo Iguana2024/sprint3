@@ -81,3 +81,10 @@ git push origin new-feature
 5. Create a pull request.
 
 ## Credits
+We would like to extend our appreciation to the following team members for their contributions to the implementation of this solution:
+
+- **Yurii Belichenko**
+- **Anton Antonenko**
+- **Aliona Sahaidak**
+- **Anna Olenych**
+- **Oleksii Taranyk** 
