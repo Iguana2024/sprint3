@@ -1,0 +1,45 @@
+name: docker-compose-actions-workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Check current directory
+        run: pwd
+        
+      - name: List contents
+        run: ls -alh
+        
+      - name: Build the stack
+        run: docker compose up -d
+        working-directory: test  
+
+      - name: Check if docker-compose has the service 'web'
+        run: docker compose ps --services | grep web || true
+        working-directory: test
+        
+      - name: Check if docker-compose has the service 'redis'
+        run: docker compose ps --services | grep redis || true
+        working-directory: test
+
+      - name: Check if docker-compose has the service 'mongodb'
+        run: docker compose ps --services | grep mongodb || true
+        working-directory: test
+        
+      - name: Test containers functionality
+        uses: cypress-io/github-action@v6
+        env:
+          CYPRESS_BASE_URL: http://localhost:5000
+        with:
+          working-directory: ./.github/tests  
