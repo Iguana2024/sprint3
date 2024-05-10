@@ -38,7 +38,7 @@ This simple web application allows visitors to make a decision whether to share 
 IGD Data Storage requires Docker Engine`s latest version
 
 ## Architecture Diagram
-![Main Page](/images/architecture.png)
+
 
 ## Usage
 - Visit the main page.
@@ -48,7 +48,7 @@ IGD Data Storage requires Docker Engine`s latest version
 - If "Reject" is selected, your IP address will be hashed and stored in the database. On subsequent visits, if the hashed IP matches, a rejection message will be displayed.
 - Use the "Erase Data" link to remove granted permission or rejection and return to the main page. <br>
 
-![Main Page](/images/1.png)
+
 
 ## Setup Instructions
 1. Clone the repository:
