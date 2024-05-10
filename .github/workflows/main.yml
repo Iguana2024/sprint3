@@ -1,0 +1,20 @@
+name: docker-compose-actions-workflow
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        working-directory: ./tests 
+        run: docker compose up -d
+      - name: Check if docker-compose has the service 'web'
+        run: docker compose ps --services | grep web
+      - name: Check if docker-compose has the service 'redis'
+        run: docker compose ps --services | grep redis
+      - name: Test containers functionality
+        uses: cypress-io/github-action@v6
+        env:
+          CYPRESS_BASE_URL: http://localhost:5000
+        with:
+          working-directory: ./.github/tests
