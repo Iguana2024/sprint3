@@ -8,10 +8,9 @@ import os
 import redis
 import json  
 
-
-redis_host = os.getenv('REDIS_HOST', 'localhost')
+# Setup for Redis and MongoDB remains the same
+redis_host = os.getenv('REDIS_HOST', 'redis')
 redis_db = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
-
 app = Flask(__name__)
 mongo_client = MongoClient('mongodb://mongodb:27017/')
 db = mongo_client['data_storage']
@@ -37,7 +36,7 @@ def check_user_permission(ip):
 
 def check_user_rejection(ip):
     hashed_ip = hash_ip(ip)
-    rejection = rejections.find_one({'hashed_IP': hashed_ip})
+    rejection = rejections.find_one({'hashed_ip': hashed_ip})
     return rejection
 
 def get_user_decision(ip):
@@ -82,7 +81,7 @@ def process():
             'datetime': datetime_now,
             'description': 'Granted access'
         })
-        #Used GPT for using j.dumps
+        
         redis_db.set(f"Granted:{unique_id}:{ip}:{datetime_now}", json.dumps(permission_data))
         return redirect(url_for('granted_permission'))
     elif request.form.get('reject'):
@@ -97,7 +96,7 @@ def process():
         }
         rejections.insert_one({
             'ID': unique_id,
-            'hashed_IP': hashed_ip,
+            'hashed_ip': hashed_ip,
             'datetime': datetime_now,
             'description': 'Rejected access'
         })
@@ -115,7 +114,7 @@ def erase_data():
         permissions.delete_many({'IP': ip})
     elif user_decision == 'rejected':
         keys = redis_db.keys(f"Rejected:*:{hashed_ip}:*")
-        rejections.delete_many({'hashed_IP': hashed_ip})
+        rejections.delete_many({'hashed_ip': hashed_ip})
     else:
         keys = []
     for key in keys:
@@ -134,17 +133,18 @@ def rejected_permission():
 
 @app.route('/get_data')
 def get_data():
-    permission_data = list(permissions.find({}, {'_id': 0}))
-    rejection_data = list(rejections.find({}, {'_id': 0}))
+    ip = request.remote_addr
+    hashed_ip = hash_ip(ip)
+    user_decision = get_user_decision(ip)
+    if user_decision == 'granted':
+        permission_data = list(permissions.find({'IP': ip}, {'_id': 0}))
+        rejection_data = []
+    elif user_decision == 'rejected':
+        permission_data = []
+        rejection_data = list(rejections.find({'hashed_ip': hashed_ip}, {'_id': 0}))
+
     return jsonify(permission_data=permission_data, rejection_data=rejection_data)
 
-@app.route('/db')
-def db():
-    success, info = test_mongo_connection()
-    if success:
-        return f'MongoDB Server Info: {info}'
-    else:
-        return f'Failed to connect to MongoDB: {info}'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
