@@ -10,8 +10,8 @@ describe('Demo  Web App Test', () => {
     cy.get('body').should('contain', rightContent);
   });
 
-  it('Application connected to Redis', () => {
-    const rightContent = 'redis_version';
+  it('Application connected to MongoDB', () => {
+    const rightContent = 'MongoDB Server Info';
     cy.visit('/db');
     cy.get('body').should('contain', rightContent);
   });
