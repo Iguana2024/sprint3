@@ -64,14 +64,14 @@ docker-compose up --build
 4. Access the application in a web browser at `https://localhost:90`
 
 ## Usage
-- Visit the main page.<br>
-![Main Page](/images/1.png)<br>
-- Choose "Grant" or "Reject" to grant or reject permission to store your data.<br>
-- If "Grant" is selected, your details will be stored in the database and displayed on subsequent visits.<br>
- ![Grant Selected](/images/2.png)<br>
-- If "Reject" is selected, your IP address will be hashed and stored in the database. On subsequent visits, if the hashed IP matches, a rejection message will be displayed.<br>
- ![Grant Selected](/images/3.png)<br>
-- Use the "Erase Data" link to remove granted permission or rejection and return to the main page.<br>
+- Visit the main page.
+- Choose "Grant" or "Reject" to grant or reject permission to store your data.
+- If "Grant" is selected, your details will be stored in the database and displayed on subsequent visits.
+
+- If "Reject" is selected, your IP address will be hashed and stored in the database. On subsequent visits, if the hashed IP matches, a rejection message will be displayed.
+- Use the "Erase Data" link to remove granted permission or rejection and return to the main page. <br>
+
+![Main Page](/images/1.png)
 
 ## Documentation
 
