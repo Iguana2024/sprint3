@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
+from werkzeug.middleware.proxy_fix import ProxyFix
 import pymongo
 from pymongo import MongoClient
 import hashlib
@@ -12,6 +13,7 @@ import json
 redis_host = os.getenv('REDIS_HOST', 'redis')
 redis_db = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 mongo_client = MongoClient('mongodb://mongodb:27017/')
 db = mongo_client['data_storage']
 permissions = db['permissions']
