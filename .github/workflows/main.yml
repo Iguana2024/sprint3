@@ -6,12 +6,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        working-directory: ./tests 
         run: docker compose up -d
+        working-directory: ./tests
       - name: Check if docker-compose has the service 'web'
         run: docker compose ps --services | grep web
+        working-directory: ./tests
       - name: Check if docker-compose has the service 'redis'
         run: docker compose ps --services | grep redis
+        working-directory: ./tests
       - name: Test containers functionality
         uses: cypress-io/github-action@v6
         env:
