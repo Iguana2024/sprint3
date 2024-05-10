@@ -1,6 +1,7 @@
 # IGD Data Storage Application
 
 ## Table of contents
+* [Introduction](#introduction)
 * [Overview](#overview)
 * [Technologies Used](#technologies-used)
 * [Requirements](#requirements)
@@ -19,8 +20,25 @@
 * [Contributing](#contributing)
 * [Credits](#credits)
 
+## Introduction
+This web application provides a simple yet effective solution for users to manage their data sharing preferences securely. Whether you're a developer looking to understand the inner workings of the application, an end-user seeking to control how your data is stored and processed, or a website/web platform owner interested in integrating data sharing options, this README will guide you through the key aspects of the project.
+
+### Purpose
+The purpose of the IGD Data Storage Application is to offer users a user-friendly solution for making decisions about data sharing. By presenting clear options to grant or reject permission for data storage, the application empowers users to maintain control over their personal information.
+
+### Target Audience
+- **Developers** in exploring the codebase, contributing to the project, or integrating the application with other systems.
+- **End-Users** who want to understand how their data is managed and stored, and who wish to exercise control over their data sharing preferences.
+- **Website and Web Platform Owners** who wish to integrate data sharing options seamlessly into their existing systems, enhancing user privacy and compliance with data protection regulations.
+
+### Key Features
+- **Clear options** for granting or rejecting permission for data storage.
+- **Transparent handling** of user decisions, ensuring GDPR compliance and accountability.
+- **Secure storage** and retrieval of user data using MongoDB and Redis.
+- **Easy-to-use interface** for managing data sharing preferences.
+
 ## Overview
-This simple web application allows visitors to make informed decisions about sharing their data. Users are presented with two clear options: "Grant" or "Reject".
+Web application allows visitors to make informed decisions about sharing their data. Users are presented with two clear options: "Grant" or "Reject".
 
 - **Grant Permission:**
   - Choosing "Grant" allows users to willingly share their data. Upon selection, the application securely stores the visitor's IP address, ID, date, and time in the database. This information is then displayed on subsequent visits, ensuring transparency, accountability, and compliance with GDPR regulations.
@@ -86,7 +104,7 @@ sudo systemctl status docker
 docker-compose up --build
 ```
 
-4. Access the application in a web browser at `http://localhost`
+5. Access the application in a web browser at `http://localhost`
 
 ### Locally Running
 1. Clone the repository:
@@ -96,7 +114,7 @@ git clone https://github.com/Iguana2024/sprint3.git
 
 2. Change the current working directory via the terminal
 ```shell
-cd test/
+cd sprint3/test/
 ```
 
 3. Install Docker on your machine if not already installed.
