@@ -23,7 +23,7 @@
 * [Credits](#credits)
 
 ## Introduction
-Welcome to the IGD Application! The purpose of the IGD Application is to offer users a user-friendly solution for making decisions about data sharing. By presenting clear options to grant or reject permission for data storage, the application allows users to maintain control over their personal information.
+Welcome to the IGD Application! The purpose of the IGD Application is to offer a user-friendly solution for making decisions about data sharing. By presenting clear options to grant or reject permission for data storage, the application allows users to maintain control over their personal information.
 
 ### Target Audience
 - **Developers** are interested in exploring the codebase, contributing to the project, or integrating the application with other systems.
@@ -36,7 +36,7 @@ Welcome to the IGD Application! The purpose of the IGD Application is to offer u
 - **Secure storage** and retrieval of user data using MongoDB and Redis.
 - **Easy-to-use interface** for managing data sharing preferences.
 
-This Documentation will guide you through the key aspects of the project.
+This Documentation will guide you through the key aspects of the application.
 
 ## Overview
 The IGD Application allows visitors to make informed decisions about sharing their data. Users are presented with two clear options: "Grant" or "Reject".
@@ -66,6 +66,13 @@ IGD Application requires Docker Engine`s latest version
 
 ## Architecture Diagram
 ![image](https://github.com/Iguana2024/sprint3/assets/168120052/d5aad07d-f199-4c28-9cb5-0fdf067e938d)
+
+### Flow:
+- **End-user** initiates a secure HTTPS connection to the NGINX server by sending HTTPS requests.
+- **NGINX** acts as a reverse proxy, receiving HTTPS requests from the end-user and forwarding them to the Flask application running within a Docker container.
+- **Flask** communicates with Redis and MongoDB to perform caching and persistent storage operations, such as retrieving data, storing new data, or updating existing data.
+- **Flask** generates HTML templates or JSON responses, which are then sent back to NGINX. 
+- **NGINX** forwards these responses securely over HTTPS to the end-user.
 
 ## Usage
 - Visit the main page.
