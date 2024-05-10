@@ -4,11 +4,11 @@
 * [Overview](#overview)
 * [Technologies Used](#technologies-used)
 * [Requirements](#requirements)
-* [Architecture Diagram](#architecturediagram)
+* [Architecture Diagram](#architecture-diagram)
 * [Usage](#usage)
-* [Setup Instructions](#setupinstructions)
-* [Understanding Codebase](#understandingcodebase)
-* [Troubleshooting Guide](#troubleshootingguide)
+* [Setup Instructions](#setup-instructions)
+* [Understanding Codebase](#understanding-codebase)
+* [Troubleshooting Guide](#troubleshooting-guide)
 * [Contributing](#contributing)
 * [Credits](#credits)
 
@@ -16,7 +16,7 @@
 This simple web application allows visitors to make a decision whether to share their data or not. Users are presented with two clear options: "Grant" or "Reject".
 
 - **Grant Permission:**
-  - If a visitor selects "Grant", their IP address, ID, date, and time of the selected option are stored in the database. This information is then displayed on subsequent visits, ensuring transparency and accountability regarding data storage, ensuring GDPR compliance and user accountability.
+  - If a visitor selects "Grant", their IP address, ID, date, and time of the selected option are stored in the database. This information is then displayed on subsequent visits, ensuring transparency and accountability regarding data storage, GDPR compliance, and user accountability.
 
 - **Reject Permission:**
   - Opting for "Reject" hashes the visitor's IP address and stores it in the database. On future visits, if the hashed IP matches, a message indicating rejection is displayed. The application informs the user of their previous rejection decision, upholding user privacy rights.
@@ -35,33 +35,10 @@ This simple web application allows visitors to make a decision whether to share 
 - **CERT-Bot:** An open-source tool used for automating the process of obtaining SSL certificates from certificate authorities (CAs) like Let's Encrypt. It simplifies the management of SSL/TLS certificates, ensuring secure communication between the web server and clients.
 
 ## Requirements
-IGD Data Storage requires Docker Engine latest version
+IGD Data Storage requires Docker Engine`s latest version
 
 ## Architecture Diagram
 ![Main Page](/images/architecture.png)
-
-## Setup Instructions
-
-1. Clone the repository:
-```
-git clone https://github.com/Iguana2024/sprint3.git
-```
-
-2. Install Docker on your machine if not already installed.
-```shell
-# Check if Docker is installed:
-docker --version
-# Check if the Docker service is running:
-sudo systemctl status docker
-```
-[Get](https://docs.docker.com/engine/install/) the official guidelines for installing Docker.
-
-3. Build and run the Docker container:
-```
-docker-compose up --build
-```
-
-4. Access the application in a web browser at `https://localhost:90`
 
 ## Usage
 - Visit the main page.
@@ -72,6 +49,36 @@ docker-compose up --build
 - Use the "Erase Data" link to remove granted permission or rejection and return to the main page. <br>
 
 ![Main Page](/images/1.png)
+
+## Setup Instructions
+1. Clone the repository:
+```
+git clone https://github.com/Iguana2024/sprint3.git
+```
+
+2. Сreate directory 'certs' and put your ssl certificates there
+```shell
+# Сreate directory 'certs':
+mkdir certs/
+# put your ssl certificates there:
+cp your/certificates/path certs/
+```
+
+3. Install Docker on your machine if not already installed.
+```shell
+# Check if Docker is installed:
+docker --version
+# Check if the Docker service is running:
+sudo systemctl status docker
+```
+[Get](https://docs.docker.com/engine/install/) the official guidelines for installing Docker.
+
+4. Build and run the Docker container:
+```
+docker-compose up --build
+```
+
+4. Access the application in a web browser at `https://localhost:90`
 
 ## Understanding Codebase
 - **home.py:**
