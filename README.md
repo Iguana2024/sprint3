@@ -4,10 +4,11 @@
 * [Overview](#overview)
 * [Technologies Used](#technologies-used)
 * [Requirements](#requirements)
-* [How It Works](#howitworks)
-* [Setup Instructions](#setupinstructions)
+* [Architecture Diagram](#architecturediagram)
 * [Usage](#usage)
-* [Documentation](#documentation)
+* [Setup Instructions](#setupinstructions)
+* [Understanding Codebase](#understandingcodebase)
+* [Troubleshooting Guide](#troubleshootingguide)
 * [Contributing](#contributing)
 * [Credits](#credits)
 
@@ -36,9 +37,8 @@ This simple web application allows visitors to make a decision whether to share 
 ## Requirements
 IGD Data Storage requires Docker Engine latest version
 
-## How It Works
-- Summarize Flow
-- Design Diagram
+## Architecture Diagram
+![Main Page](/images/architecture.png)
 
 ## Setup Instructions
 
@@ -73,7 +73,27 @@ docker-compose up --build
 
 ![Main Page](/images/1.png)
 
-## Documentation
+## Understanding Codebase
+- **home.py:**
+  - main Flask application code.
+  - route definitions.
+  - database interactions.
+  - request handling logic.
+
+- **Docker:**
+  - Dockerfile (Docker image configuration).
+  - docker-compose.yml (Docker services and configurations).
+
+- **nginx:**
+  - nginx.conf (routing HTTP requests).
+  - example.conf (setting up SSL/TLS encryption and redirecting HTTP traffic to HTTPS).
+
+- **Templates:**
+  - home.html (main page of the application where users are presented with the choice to grant or reject permission to store data).
+  - granted_permission.html (template is displayed when a user grants permission to store data.).
+  - rejected_permission.html (template is displayed when a user rejects permission to store their data).
+
+## Troubleshooting Guide
 
 ## Contributing
 1. Fork the repository.
