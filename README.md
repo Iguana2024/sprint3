@@ -176,20 +176,30 @@ docker-compose up
   - **Templates** includes HTML templates required for rendering application pages locally.
 
 ## Troubleshooting Guide
-- **application not accessible:**
-  - Docker container not running
-  - port conflict
+This section provides troubleshooting steps for common issues that may arise during setup or usage of the project.
+### Docker setup issues
+- **Issue:** Docker containers fail to build or run properly.
+- **Solution:**
 
-- **database connection issues:**
-  - incorrect database configuration
-  - network connectivity
+### Python dependency issues
+- **Issue:** Python packages fail to install or are missing.
+- **Solution:**
 
-- **SSL/TLS certificate issues:**
-  - invalid or expired certificate
-  - misconfigured nginx
+### Nginx configuration issues
+- **Issue:** Nginx fails to serve web pages or encounters errors.
+- **Solution:**
 
-- **data processing errors:**
-  - incorrect data handling
+### HTML template issues
+- **Issue:** Web pages do not render properly or encounter errors.
+- **Solution:**
+
+### Redis and MongoDB connection issues
+- **Issue:** Connection to Redis or MongoDB fails.
+- **Solution:**
+
+### General Troubleshooting
+- **Issue:** Other issues not covered above.
+- **Solution:**
 
 ## Contributing
 1. Fork the repository.
