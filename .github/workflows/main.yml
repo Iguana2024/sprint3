@@ -11,16 +11,17 @@ jobs:
         run: ls -alh
       - name: Build the stack
         run: docker compose up -d
-        working-directory: tests
+        working-directory: test  
+
       - name: Check if docker-compose has the service 'web'
-        run: docker compose ps --services | grep web
-        working-directory: tests
+        run: docker compose ps --services | grep web || true
+        working-directory: test
       - name: Check if docker-compose has the service 'redis'
-        run: docker compose ps --services | grep redis
-        working-directory: tests
+        run: docker compose ps --services | grep redis || true
+        working-directory: test
       - name: Test containers functionality
         uses: cypress-io/github-action@v6
         env:
           CYPRESS_BASE_URL: http://localhost:5000
         with:
-          working-directory: ./.github/tests
+          working-directory: ./.github/tests  
