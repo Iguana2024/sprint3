@@ -56,7 +56,7 @@ The IGD Application allows visitors to make informed decisions about sharing the
 - **Redis:** An in-memory data structure store used as a caching layer to improve application performance.
 - **HTML and JavaScript:** Standard markup and scripting languages used for frontend development, providing interactivity and dynamic behavior.
 - **Docker:** A containerization platform enabling consistent deployment across different environments.
-- **Nginx:** A high-performance web server and reverse proxy server used to handling HTTP requests and serving static content.
+- **Nginx:** A high-performance web server and reverse proxy server used to handling HTTP/HTTPS requests and serving static content.
 - **AWS EC2:** Providing scalable computing capacity in the cloud for hosting the deployed application.
 - **CERT-Bot:** Automating the process of obtaining SSL certificates, ensuring secure communication between the web server and clients.
 - **Git Actions:** Automating tasks and workflows in the software development process, enhancing code quality and deployment efficiency.
@@ -68,11 +68,11 @@ IGD Application requires Docker Engine`s latest version
 ![image](https://github.com/Iguana2024/sprint3/assets/168120052/d5aad07d-f199-4c28-9cb5-0fdf067e938d)
 
 ### Flow:
-- **End-user** initiates a secure HTTPS connection to the NGINX server by sending HTTPS requests.
-- **NGINX** acts as a reverse proxy, receiving HTTPS requests from the end-user and forwarding them to the Flask application running within a Docker container.
-- **Flask** communicates with Redis and MongoDB to perform caching and persistent storage operations, such as retrieving data, storing new data, or updating existing data.
-- **Flask** generates HTML templates or JSON responses, which are then sent back to NGINX. 
-- **NGINX** forwards these responses securely over HTTPS to the end-user.
+- **End-user** initiates a secure **HTTPS** connection to the **NGINX** server by sending **HTTPS** requests.
+- **NGINX** acts as a reverse proxy, receiving **HTTPS** requests from the end-user and forwarding them to the **Flask** application running within a **Docker container**.
+- **Flask** communicates with **Redis** and **MongoDB** to perform caching and persistent storage operations, such as retrieving data, storing new data, or updating existing data.
+- **Flask** generates **HTML** templates or **JSON** responses, which are then sent back to **NGINX**. 
+- **NGINX** forwards these responses securely over **HTTPS** to the **end-user**.
 
 ## Usage
 - Visit the main page.
