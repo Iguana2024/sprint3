@@ -64,10 +64,14 @@ The IGD Application allows visitors to make informed decisions about sharing the
 ## Requirements
 IGD Application requires Docker Engine`s latest version
 
-## Architecture Diagram
+## Architecture
+### Overview
+The architecture of the application is designed to provide a secure environment for handling user requests, data storage, and response generation. It leverages a combination of technologies to ensure efficient processing and seamless user experience.
+
+### Diagram
 ![image](https://github.com/Iguana2024/sprint3/assets/168120052/d5aad07d-f199-4c28-9cb5-0fdf067e938d)
 
-### Flow:
+### Description:
 - **End-user** initiates a secure **HTTPS** connection to the **NGINX** server by sending **HTTPS** requests.
 - **NGINX** acts as a reverse proxy, receiving **HTTPS** requests from the end-user and forwarding them to the **Flask** application running within a **Docker container**.
 - **Flask** communicates with **Redis** and **MongoDB** to perform caching and persistent storage operations, such as retrieving data, storing new data, or updating existing data.
