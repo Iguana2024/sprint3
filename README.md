@@ -7,22 +7,29 @@
 * [Architecture Diagram](#architecture-diagram)
 * [Usage](#usage)
 * [Setup Instructions](#setup-instructions)
+  * [Server Running](#server-running)
+  * [Locally Running](#locally-running)
 * [Understanding Codebase](#understanding-codebase)
+  * [home.py](#homepy)
+  * [Docker](#docker)
+  * [Nginx](#nginx)
+  * [Templates](#templates)
+  * [Running Locally](#running-locally)
 * [Troubleshooting Guide](#troubleshooting-guide)
 * [Contributing](#contributing)
 * [Credits](#credits)
 
 ## Overview
-This simple web application allows visitors to make a decision whether to share their data or not. Users are presented with two clear options: "Grant" or "Reject".
+This simple web application allows visitors to make informed decisions about sharing their data. Users are presented with two clear options: "Grant" or "Reject".
 
 - **Grant Permission:**
-  - If a visitor selects "Grant", their IP address, ID, date, and time of the selected option are stored in the database. This information is then displayed on subsequent visits, ensuring transparency and accountability regarding data storage, GDPR compliance, and user accountability.
+  - Choosing "Grant" allows users to willingly share their data. Upon selection, the application securely stores the visitor's IP address, ID, date, and time in the database. This information is then displayed on subsequent visits, ensuring transparency, accountability, and compliance with GDPR regulations.
 
 - **Reject Permission:**
-  - Opting for "Reject" hashes the visitor's IP address and stores it in the database. On future visits, if the hashed IP matches, a message indicating rejection is displayed. The application informs the user of their previous rejection decision, upholding user privacy rights.
+  - Opting for "Reject" prioritizes user privacy. The application hashes the visitor's IP address and stores hash in the database. On future visits, if the hashed IP matches, a message indicating rejection is displayed. This approach respects users' privacy rights while providing clear feedback on their previous decisions.
 
 - **Erase Data:**
-  - Additionally, the application offers users the ability to erase their data, providing an easy way to remove granted permissions or rejections and return to the main page with the two initial options.
+  - Additionally, the application offers users the ability to erase their data, providing a seamless way to revoke granted permissions or rejections. This feature enables users to reset their preferences, returning to the main page with the two initial options.
 
 ## Technologies Used
 - **Python Flask:** A lightweight web application framework used for backend development. Flask allows for the rapid development and deployment of web applications.
@@ -33,6 +40,7 @@ This simple web application allows visitors to make a decision whether to share 
 - **Nginx:** A high-performance web server and reverse proxy server used to handle HTTP requests and serve static content. Nginx is known for its efficiency and scalability, making it ideal for handling high-traffic loads. It also provides features like load balancing, SSL termination, and caching to improve performance and security.
 - **AWS EC2:** Amazon Web Services (AWS) Elastic Compute Cloud (EC2) provides scalable computing capacity in the cloud. AWS EC2 instances host the deployed application, ensuring scalability, reliability, and cost-effectiveness. They provide the computational power needed to run the application and can be easily scaled up or down based on demand.
 - **CERT-Bot:** An open-source tool used for automating the process of obtaining SSL certificates from certificate authorities (CAs) like Let's Encrypt. It simplifies the management of SSL/TLS certificates, ensuring secure communication between the web server and clients.
+- **Git Actions:** A feature of Git that allows for automating tasks and workflows in the software development process. Git Actions helps improve code quality and deployment efficiency.
 
 ## Requirements
 IGD Data Storage requires Docker Engine`s latest version
@@ -50,6 +58,7 @@ IGD Data Storage requires Docker Engine`s latest version
 ![image](https://github.com/Iguana2024/sprint3/assets/168120052/4683639e-d566-407f-93f2-616e99aa014a)
 
 ## Setup Instructions
+### Server Running
 1. Clone the repository:
 ```
 git clone https://github.com/Iguana2024/sprint3.git
@@ -79,25 +88,61 @@ docker-compose up --build
 
 4. Access the application in a web browser at `http://localhost`
 
+### Locally Running
+1. Clone the repository:
+```
+git clone https://github.com/Iguana2024/sprint3.git
+```
+
+2. Change the current working directory via the terminal
+```shell
+cd test/
+```
+
+3. Install Docker on your machine if not already installed.
+```shell
+# Check if Docker is installed:
+docker --version
+# Check if the Docker service is running:
+sudo systemctl status docker
+```
+[Get](https://docs.docker.com/engine/install/) the official guidelines for installing Docker.
+
+4. Run application:
+```
+docker-compose up
+```
+
+5. Access the application in a web browser at `http://localhost:5000`
+
 ## Understanding Codebase
-- **home.py:**
-  - main Flask application code.
-  - route definitions.
-  - database interactions.
-  - request handling logic.
+### home.py
+- The main Flask application code.
+- It includes route definitions for handling different HTTP requests.
+- Database interactions, such as storing user decisions and retrieving stored data, are implemented here.
+- Request handling logic, including decision processing based on user input, is managed within this file.
 
-- **Docker:**
-  - Dockerfile (Docker image configuration).
-  - docker-compose.yml (Docker services and configurations).
+### Docker
+- **Dockerfile** defines the configuration for building the Docker image.
+- **docker-compose.yml** specifies the Docker services and configurations.
+- **requirements.txt** lists the necessary dependencies required for running the application.
 
-- **nginx:**
-  - nginx.conf (routing HTTP requests).
-  - example.conf (setting up SSL/TLS encryption and redirecting HTTP traffic to HTTPS).
+### Nginx
+- **nginx.conf** configures routing of HTTP requests.
+- **example.conf** sets up SSL/TLS encryption and redirects HTTP traffic to HTTPS.
 
-- **Templates:**
-  - home.html (main page of the application where users are presented with the choice to grant or reject permission to store data).
-  - granted_permission.html (template is displayed when a user grants permission to store data.).
-  - rejected_permission.html (template is displayed when a user rejects permission to store their data).
+### Templates
+- **home.html** serves as the main page of the application, where users are presented with the choice to grant or reject permission to store data.
+- **granted_permission.html** is displayed when a user grants permission to store their data, providing acknowledgment of their choice.
+- **rejected_permission.html** is displayed when a user rejects permission to store their data, confirming their decision and privacy rights.
+
+### Running Locally
+- **Folder Structure (`/test/`)**:
+  - **home.py** is the file of the main application code, tailored for local testing and development purposes.
+  - **Dockerfile** defines the Docker image configuration for local development environments.
+  - **docker-compose.yml**: specifies Docker services and configurations for local deployment.
+  - **requirements.txt**: lists necessary dependencies for running the application locally.
+  - **Templates** includes HTML templates required for rendering application pages locally.
 
 ## Troubleshooting Guide
 - **application not accessible:**
