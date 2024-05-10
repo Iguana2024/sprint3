@@ -5,7 +5,7 @@
 * [Overview](#overview)
 * [Technologies Used](#technologies-used)
 * [Requirements](#requirements)
-* [Architecture Diagram](#architecture-diagram)
+* [Architecture](#architecture)
 * [Usage](#usage)
 * [Setup Instructions](#setup-instructions)
   * [Server Environment](#server-environment)
@@ -94,7 +94,7 @@ The architecture of the application is designed to provide a secure environment 
 git clone https://github.com/Iguana2024/sprint3.git
 ```
 
-2. Сreate directory 'certs' and put your ssl certificates there
+2. Сreate directory 'certs' and put your ssl certificates there:
 ```shell
 # Сreate directory 'certs':
 mkdir certs/
@@ -102,7 +102,7 @@ mkdir certs/
 cp your/certificates/path certs/
 ```
 
-3. Install Docker on your machine if not already installed.
+3. Install Docker on your machine if not already installed:
 ```shell
 # Check if Docker is installed:
 docker --version
@@ -124,12 +124,12 @@ docker-compose up --build
 git clone https://github.com/Iguana2024/sprint3.git
 ```
 
-2. Change the current working directory via the terminal
+2. Change the current working directory via the terminal:
 ```shell
 cd sprint3/test/
 ```
 
-3. Install Docker on your machine if not already installed.
+3. Install Docker on your machine if not already installed:
 ```shell
 # Check if Docker is installed:
 docker --version
