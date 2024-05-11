@@ -1,4 +1,6 @@
-# IGD Application
+[![docker-compose-actions-workflow](https://github.com/Iguana2024/sprint3/actions/workflows/main.yml/badge.svg)](https://github.com/Iguana2024/sprint3/actions/workflows/main.yml)
+
+# IdentityCrumb Application
 
 ## Table of contents
 * [Introduction](#introduction)
@@ -19,16 +21,17 @@
   * [For Local Environment](#for-local-environment)
     * [Folder Structure (`/test/`)](#folder-structure-test)
 * [Troubleshooting Guide](#troubleshooting-guide)
+  * [Docker setup issues](#docker-setup-issues)
+  * [Python dependency issues](#python-dependency-issues)
+  * [Nginx configuration issues](#nginx-configuration-issues)
+  * [HTML template issues](#html-template-issues)
+  * [Redis and MongoDB connection issues](#redis-and-mongodb-connection-issues)
+  * [General Troubleshooting](#general-troubleshooting)
 * [Contributing](#contributing)
 * [Credits](#credits)
 
 ## Introduction
-Welcome to the IGD Application! The purpose of the IGD Application is to offer a user-friendly solution for making decisions about data sharing. By presenting clear options to grant or reject permission for data storage, the application allows users to maintain control over their personal information.
-
-### Target Audience
-- **Developers** are interested in exploring the codebase, contributing to the project, or integrating the application with other systems.
-- **End-Users** who want to understand how their data is managed and stored, and who wish to control over their data sharing preferences.
-- **Website and Web Platform Owners** who wish to integrate data sharing options seamlessly into their existing systems, enhancing user privacy and compliance with data protection regulations.
+Welcome to the IdentityCrumb Application! The purpose of the IdentityCrumb Application is to offer a user-friendly solution for making decisions about data sharing. By presenting clear options to grant or reject permission for data storage, the application allows users to maintain control over their personal information.
 
 ### Key Features
 - **Clear options** for granting or rejecting permission for data storage.
@@ -39,7 +42,7 @@ Welcome to the IGD Application! The purpose of the IGD Application is to offer a
 This Documentation will guide you through the key aspects of the application.
 
 ## Overview
-The IGD Application allows visitors to make informed decisions about sharing their data. Users are presented with two clear options: "Grant" or "Reject".
+The IdentityCrumb Application allows visitors to make informed decisions about sharing their data. Users are presented with two clear options: "Grant" or "Reject".
 
 - **Grant Permission:**
   - Choosing "Grant" allows users to willingly share their data. Upon selection, the application securely stores the visitor's IP address, ID, date, and time in the database. This information is then displayed on subsequent visits, ensuring transparency, accountability, and compliance with GDPR regulations.
@@ -62,7 +65,7 @@ The IGD Application allows visitors to make informed decisions about sharing the
 - **Git Actions:** Automating tasks and workflows in the software development process, enhancing code quality and deployment efficiency.
 
 ## Requirements
-IGD Application requires Docker Engine`s latest version
+IdentityCrumb Application requires Docker Engine`s latest version
 
 ## Architecture
 ### Overview
@@ -180,26 +183,42 @@ This section provides troubleshooting steps for common issues that may arise dur
 ### Docker setup issues
 - **Issue:** Docker containers fail to build or run properly.
 - **Solution:**
+  - **Check Docker installation:** Ensure Docker is properly installed on your system and running. You can verify this by running `docker --version`.
+  - **Review Dockerfile:** Ensure all necessary dependencies are properly specified and installed.
+  - **Permissions:** Make sure you have the necessary permissions to build and run Docker containers. You may need to run Docker commands with `sudo` or ensure your user is part of the Docker group.
+  - **Ports configuration:** Ensure there are no conflicts with network configurations, especially if using custom network settings in `docker-compose.yml`.
+
 
 ### Python dependency issues
 - **Issue:** Python packages fail to install or are missing.
 - **Solution:**
+  - **Check requirements.txt:** Verify that all necessary Python dependencies are listed in `requirements.txt`. Ensure the package names and versions are correct.
+  - **Virtual environment:** If using a virtual environment, activate it and reinstall dependencies using `pip install -r requirements.txt`.
+  - **Network issues:** If dependencies fail to download due to network issues, ensure your network connection is stable and can access the required repositories.
 
 ### Nginx configuration issues
 - **Issue:** Nginx fails to serve web pages or encounters errors.
 - **Solution:**
+  - **Check nginx.conf:** Ensure correct server configurations and upstream definitions.
+  - **File permissions:** Ensure that Nginx has appropriate permissions to access and serve files specified in the configuration.
+  - **Restart Nginx:** After making changes to the configuration, restart the Nginx service using `sudo service nginx restart` or equivalent command for your system.
+
 
 ### HTML template issues
 - **Issue:** Web pages do not render properly or encounter errors.
 - **Solution:**
+  - **Check HTML templates:** Review `home.html`, `granted_permission.html`, and `rejected_permission.html` for any syntax errors or missing elements.
+  - **CSS/JS dependencies:** Ensure all necessary CSS and JavaScript files are correctly linked within the HTML templates.
 
 ### Redis and MongoDB connection issues
 - **Issue:** Connection to Redis or MongoDB fails.
 - **Solution:**
+  - **Test connection:** Use the `test_mongo_connection()` function in `home.py` to verify the connection to MongoDB. Similarly, check the connection to Redis.
 
 ### General Troubleshooting
 - **Issue:** Other issues not covered above.
 - **Solution:**
+  - **Error Logs:** Check Docker logs (`docker logs <container_id>`) and Nginx error logs (`/var/log/nginx/error.log`) for any error messages or stack traces that may provide clues to the issue.
 
 ## Contributing
 1. Fork the repository.
