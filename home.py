@@ -228,6 +228,10 @@ def get_data():
         rejection_data = list(rejections.find({'hashed_ip': hashed_ip}, {'_id': 0}))
     return jsonify(permission_data=permission_data, rejection_data=rejection_data)
 
+@app.route('/form')
+def form():
+     return render_template('form.html')
+
 @app.route('/db')
 def db():
     success, info = test_mongo_connection()
