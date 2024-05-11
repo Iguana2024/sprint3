@@ -196,10 +196,10 @@ This section provides troubleshooting steps for common issues that may arise dur
   - **Virtual environment:** If using a virtual environment, activate it and reinstall dependencies using `pip install -r requirements.txt`.
   - **Network issues:** If dependencies fail to download due to network issues, ensure your network connection is stable and can access the required repositories.
 
-### Nginx configuration issues
+### Nginx configuration issues 
 - **Issue:** Nginx fails to serve web pages or encounters errors.
 - **Solution:**
-  - **Check nginx.conf:** Ensure correct server configurations and upstream definitions.
+  - **Check nginx.conf:** Ensure correct server configurations.
   - **File permissions:** Ensure that Nginx has appropriate permissions to access and serve files specified in the configuration.
   - **Restart Nginx:** After making changes to the configuration, restart the Nginx service using `sudo service nginx restart` or equivalent command for your system.
 
@@ -218,7 +218,7 @@ This section provides troubleshooting steps for common issues that may arise dur
 ### General Troubleshooting
 - **Issue:** Other issues not covered above.
 - **Solution:**
-  - **Error Logs:** Check Docker logs (`docker logs <container_id>`) and Nginx error logs (`/var/log/nginx/error.log`) for any error messages or stack traces that may provide clues to the issue.
+  - **Error Logs:** Check Docker logs (`docker logs <container_id>`) and Nginx error logs (`/var/log/nginx/error.log`) for any error messages that may provide clues to the issue.
 
 ## Contributing
 1. Fork the repository.
