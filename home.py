@@ -196,6 +196,8 @@ def erase_data():
         redis_db.delete(key)
     return redirect(url_for('index'))
 
+
+
 @app.route('/granted_permission')
 def granted_permission():
     return render_template('granted_permission.html')
