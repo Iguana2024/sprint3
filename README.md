@@ -83,10 +83,10 @@ The architecture of the application is designed to provide a secure environment 
 
 ## Usage
 - Visit the main page.
-- Choose "Grant" or "Reject" to grant or reject permission to store your data.
-- If "Grant" is selected, your details will be stored in the database and displayed on subsequent visits.
-- If "Reject" is selected, your IP address will be hashed and stored in the database. On subsequent visits, if the hashed IP matches, a rejection message will be displayed.
-- Use the "Erase Data" link to remove granted permission or rejection and return to the main page. <br>
+- Choose **"Grant"** or **"Reject"** to grant or reject permission to store your data.
+- If **"Grant"** is selected, your details will be stored in the database and displayed on subsequent visits.
+- If **"Reject"** is selected, your IP address will be hashed and stored in the database. On subsequent visits, if the hashed IP matches, a rejection message will be displayed.
+- Use the **"Erase Data"** link to remove granted permission or rejection and return to the main page. <br>
 
 ![image](https://github.com/Iguana2024/sprint3/assets/168120052/4683639e-d566-407f-93f2-616e99aa014a)
 
@@ -174,8 +174,8 @@ docker-compose up
 #### Folder Structure (/test/)
   - **home.py** is the file of the main application code, tailored for local testing and development purposes.
   - **Dockerfile** defines the Docker image configuration for local development environments.
-  - **docker-compose.yml**: specifies Docker services and configurations for local deployment.
-  - **requirements.txt**: lists necessary dependencies for running the application locally.
+  - **docker-compose.yml** specifies Docker services and configurations for local deployment.
+  - **requirements.txt** lists necessary dependencies for running the application locally.
   - **Templates** includes HTML templates required for rendering application pages locally.
 
 ## Troubleshooting Guide
