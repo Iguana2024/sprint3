@@ -151,10 +151,10 @@ docker-compose up
 ## Understanding Codebase
 ### For Server Environment
 #### home.py
-- The main Flask application code.
-- It includes route definitions for handling different HTTP requests.
-- Database interactions, such as storing user decisions and retrieving stored data, are implemented here.
-- Request handling logic, including decision processing based on user input, is managed within this file.
+- The main **Flask** application code.
+- It includes route definitions for handling different **HTTP** requests.
+- **Database interactions**, such as storing user decisions and retrieving stored data, are implemented here.
+- **Request** handling logic, including decision processing based on user input, is managed within this file.
 
 #### Docker
 - **Dockerfile** defines the configuration for building the Docker image.
