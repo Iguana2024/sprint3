@@ -18,22 +18,22 @@
           rgba(133, 184, 245, 1) 100%
         );
       }
-      .list-group {
+      p {
         color: white;
       }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Granted Permission</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
   </head>
   <body>
     <div class="container">
-      <h1 class="display-4 text-white">Granted Permission Page</h1>
-      <p class="lead text-white">
-        You have granted permission to store your data.
-      </p>
+      <h1 class="text-white">Granted Permission Page</h1>
+      <p class="text-white">You have granted permission to store your data.</p>
       <br />
       <div id="data-list"></div>
       <br />
+      <a href="/form" class="btn btn-success">Add more information</a>
       <a href="/erase_data" class="btn btn-danger">Erase Data</a>
       <script>
         function getData() {
@@ -41,28 +41,18 @@
             $("#data-list").empty();
             if (data.permission_data.length > 0) {
               $("#data-list").append(
-                '<h2 class="mt-5 mb-3 text-white">Permission Data</h2><ul>'
+                '<h2 class="text-white">Permission Data</h2>'
               );
               data.permission_data.forEach(function (permission) {
+                $("#data-list").append("<p>ID: " + permission.ID + "</p>");
+                $("#data-list").append("<p>IP: " + permission.IP + "</p>");
                 $("#data-list").append(
-                  '<li class="text-white">ID: ' + permission.ID + "</li>"
+                  "<p>Date and Time: " + permission.datetime + "</p>"
                 );
                 $("#data-list").append(
-                  '<li class="text-white">IP: ' + permission.IP + "</li>"
+                  "<p>Description: " + permission.description + "</p>"
                 );
-                $("#data-list").append(
-                  '<li class="text-white">Date and Time: ' +
-                    permission.datetime +
-                    "</li>"
-                );
-                $("#data-list").append(
-                  '<li class="text-white">Description: ' +
-                    permission.description +
-                    "</li></ul>"
-                );
-                $("#data-list").append("<hr>");
               });
-              $("#form-container").hide();
             }
           });
         }
@@ -76,8 +66,6 @@
               data: $(this).serialize(),
               success: function (response) {
                 $("#message").text(response.message);
-                $("#form-container").hide();
-                $("#message").show();
                 getData();
               },
               error: function (error) {
@@ -89,8 +77,6 @@
           $("#erase-data").click(function (event) {
             event.preventDefault();
             $.get("/erase_data", function (response) {
-              $("#form-container").show();
-              $("#message").hide();
               $("#data-list").empty();
             });
           });

@@ -18,7 +18,7 @@
           rgba(133, 184, 245, 1) 100%
         );
       }
-      .list-group {
+      p {
         color: white;
       }
     </style>
@@ -27,10 +27,8 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="display-4 text-white">Rejected Permission Page</h1>
-      <p class="lead text-white">
-        You have rejected permission to store your data.
-      </p>
+      <h1 class="text-white">Rejected Permission Page</h1>
+      <p class="text-white">You have rejected permission to store your data.</p>
       <div id="data-list"></div>
       <br />
       <a href="/erase_data" class="btn btn-danger">Erase Data</a>
@@ -41,30 +39,20 @@
 
             if (data.rejection_data.length > 0) {
               $("#data-list").append(
-                '<h2 class="text-white">Rejection Details:</h2><ul>'
+                '<h2 class="text-white">Rejection Details:</h2>'
               );
               data.rejection_data.forEach(function (rejection) {
                 $("#data-list").append(
-                  '<li class="text-white">Date and Time: ' +
-                    rejection.datetime +
-                    "</li>"
+                  "<p>Date and Time: " + rejection.datetime + "</p>"
                 );
                 $("#data-list").append(
-                  '<li class="text-white">Hash: ' +
-                    rejection.hashed_ip +
-                    "</li>"
+                  "<p>Hashed ip: " + rejection.hashed_ip + "</p>"
                 );
+                $("#data-list").append("<p>ID: " + rejection.ID + "</p>");
                 $("#data-list").append(
-                  '<li class="text-white">ID: ' + rejection.ID + "</li>"
+                  "<p>Description: " + rejection.description + "</p>"
                 );
-                $("#data-list").append(
-                  '<li class="text-white">Description: ' +
-                    rejection.description +
-                    "</li>"
-                );
-                $("#data-list").append("<hr>");
               });
-              $("#form-container").hide();
             }
           });
         }
@@ -78,8 +66,6 @@
               data: $(this).serialize(),
               success: function (response) {
                 $("#message").text(response.message);
-                $("#form-container").hide();
-                $("#message").show();
                 getData();
               },
               error: function (error) {
@@ -90,8 +76,6 @@
           $("#erase-data").click(function (event) {
             event.preventDefault();
             $.get("/erase_data", function (response) {
-              $("#form-container").show();
-              $("#message").hide();
               $("#data-list").empty();
             });
           });
