@@ -52,9 +52,7 @@
                 $("#data-list").append(
                   "<p>Description: " + permission.description + "</p>"
                 );
-                // $('#data-list').append('<hr>');
               });
-              $("#form-container").hide();
             }
           });
         }
@@ -68,8 +66,6 @@
               data: $(this).serialize(),
               success: function (response) {
                 $("#message").text(response.message);
-                $("#form-container").hide();
-                $("#message").show();
                 getData();
               },
               error: function (error) {
@@ -81,8 +77,6 @@
           $("#erase-data").click(function (event) {
             event.preventDefault();
             $.get("/erase_data", function (response) {
-              $("#form-container").show();
-              $("#message").hide();
               $("#data-list").empty();
             });
           });
