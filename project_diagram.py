@@ -20,5 +20,5 @@ with Diagram("Flask Application Architecture", show=False):
     with Cluster("Flask App Components"):
         flask_app >> redis_db >> mongo_db
 
-        flask_app >> mongo_db   
+   
 
