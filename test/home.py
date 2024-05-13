@@ -225,9 +225,9 @@ def erase_data():
     Returns:
         Response: Redirects the user to the home page.
     """
-    ip = request.remote_addr
-    hashed_ip = hash_ip(ip)
-    user_decision = get_user_decision(ip)
+    ip = request.remote_addr  
+    hashed_ip = hash_ip(ip)  
+    user_decision = get_user_decision(ip)  
 
     if user_decision == 'granted':
         keys = redis_db.keys(f"Granted:*:{ip}:*")
@@ -239,7 +239,9 @@ def erase_data():
         keys = []
     for key in keys:
         redis_db.delete(key)
-    return redirect(url_for('index'))
+
+    redis_db.delete(f"user:{ip}")
+    return redirect(url_for('index'))  
 
 
 
