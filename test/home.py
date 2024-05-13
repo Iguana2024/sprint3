@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 import pymongo
 from pymongo import MongoClient
@@ -20,6 +20,11 @@ mongo_client = MongoClient('mongodb://mongodb:27017/')
 db = mongo_client['data_storage']
 permissions = db['permissions']
 rejections = db['rejections']
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 def test_mongo_connection():
     """

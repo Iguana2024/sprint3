@@ -21,6 +21,10 @@ db = mongo_client['data_storage']
 permissions = db['permissions']
 rejections = db['rejections']
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 def test_mongo_connection():
     """
     Test connection to MongoDB server.
