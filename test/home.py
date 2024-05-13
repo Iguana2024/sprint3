@@ -15,7 +15,6 @@ app = Flask(__name__)
 
 redis_host = os.getenv('REDIS_HOST')
 redis_port = int(os.getenv('REDIS_PORT'))
-redis_password = os.getenv('REDIS_PASSWORD')
 mongodb_uri = os.getenv('MONGODB_URI')
 redis_db = redis.Redis(host=redis_host, port=redis_port, db=0, decode_responses=True)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)

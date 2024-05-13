@@ -9,48 +9,58 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  REDIS_HOST: ${{secrets.REDIS_HOST}}
-  REDIS_PORT: ${{secrets.REDIS_PORT}}
-  REDIS_PASSWORD: ${{secrets.REDIS_PASSWORD}}
-  MONGODB_URI: ${{secrets.MONGODB_URI}}
-
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      REDIS_HOST: ${{ secrets.REDIS_HOST }}
+      REDIS_PORT: ${{ secrets.REDIS_PORT }}
+      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Check current directory
         run: pwd
-        
+
       - name: List contents
         run: ls -alh
-        
+
+      - name: Echo Environment Variables
+        run: |
+          echo "REDIS_HOST=${{ env.REDIS_HOST }}"
+          echo "REDIS_PORT=${{ env.REDIS_PORT }}"
+          echo "MONGODB_URI=${{ env.MONGODB_URI }}"
+         
+
       - name: Build the stack
-        run: docker compose up -d
-        working-directory: test 
+        run: |
+          docker-compose up -d
+        working-directory: test
         env:
-          REDIS_HOST: ${{ secrets.REDIS_HOST }}
-          REDIS_PORT: ${{ secrets.REDIS_PORT }}
-          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }} 
+          REDIS_HOST: ${{ env.REDIS_HOST }}
+          REDIS_PORT: ${{ env.REDIS_PORT }}
+          REDIS_PASSWORD: ${{ env.REDIS_PASSWORD }}
+          MONGODB_URI: ${{ env.MONGODB_URI }}
 
       - name: Check if docker-compose has the service 'web'
-        run: docker compose ps --services | grep web || true
+        run: |
+          docker-compose ps --services | grep web || true
         working-directory: test
-        
+
       - name: Check if docker-compose has the service 'redis'
-        run: docker compose ps --services | grep redis || true
+        run: |
+          docker-compose ps --services | grep redis || true
         working-directory: test
 
       - name: Check if docker-compose has the service 'mongodb'
-        run: docker compose ps --services | grep mongodb || true
+        run: |
+          docker-compose ps --services | grep mongodb || true
         working-directory: test
-        
+
       - name: Test containers functionality
         uses: cypress-io/github-action@v6
         env:
           CYPRESS_BASE_URL: http://localhost:5000
         with:
-          working-directory: ./.github/tests  
+          working-directory: ./.github/tests
