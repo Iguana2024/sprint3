@@ -3,7 +3,7 @@ name: docker-compose-actions-workflow
 on:
   push:
     branches:
-      - IGD-78-Add-github-secrets
+      - main
   pull_request:
     branches:
       - main
