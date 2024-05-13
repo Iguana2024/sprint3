@@ -5,16 +5,23 @@ services:
   web:
     container_name: web
     build: .
+    restart: always
     networks:
       - front
       - back
     ports:
       - "5000:5000"
+    environment:
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      MONGODB_URI: ${MONGODB_URI}
     depends_on:
       - mongodb
 
   mongodb:
     image: dannyben/alpine-mongo:latest
+    restart: always
     networks:
       - back
     expose:
@@ -23,7 +30,8 @@ services:
       - ./mongo_data:/data/db
 
   redis:
-    image: redis
+    image: redis:6.2-alpine
+    restart: always
     networks:
       - back
     expose:

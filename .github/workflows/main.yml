@@ -3,11 +3,17 @@ name: docker-compose-actions-workflow
 on:
   push:
     branches:
-      - main
+      - IGD-78-Add-github-secrets
   pull_request:
     branches:
       - main
   workflow_dispatch:
+
+env:
+  REDIS_HOST: ${{secrets.REDIS_HOST}}
+  REDIS_PORT: ${{secrets.REDIS_PORT}}
+  REDIS_PASSWORD: ${{secrets.REDIS_PASSWORD}}
+  MONGODB_URI: ${{secrets.MONGODB_URI}}
 
 jobs:
   test:

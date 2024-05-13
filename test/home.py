@@ -12,11 +12,14 @@ import json
 # Initialize Flask app
 app = Flask(__name__)
 
-# Setup for Redis and MongoDB remains the same
-redis_host = os.getenv('REDIS_HOST', 'redis')
-redis_db = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
+
+redis_host = os.getenv('REDIS_HOST')
+redis_port = int(os.getenv('REDIS_PORT'))
+redis_password = os.getenv('REDIS_PASSWORD')
+mongodb_uri = os.getenv('MONGODB_URI')
+redis_db = redis.Redis(host=redis_host, port=redis_port, db=0, decode_responses=True)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
-mongo_client = MongoClient('mongodb://mongodb:27017/')
+mongo_client = MongoClient(mongodb_uri)
 db = mongo_client['data_storage']
 permissions = db['permissions']
 rejections = db['rejections']
