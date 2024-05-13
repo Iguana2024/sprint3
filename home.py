@@ -212,7 +212,7 @@ def process_reject_request(ip):
 
 @app.route('/erase_data')
 def erase_data():
-        """
+    """
     Remove user data based on their decision.
     This function retrieves the user's IP address, hashes it, and determines their previous decision (granted or rejected).
     If the user was granted access, it deletes their permission record from the permissions collection in the database
@@ -226,7 +226,9 @@ def erase_data():
     """
     ip = request.remote_addr  
     hashed_ip = hash_ip(ip)  
-    user_decision = get_user_decision(ip)  
+    user_decision = get_user_decision(ip) 
+
+    information.delete_one({'ID': ip})
 
     if user_decision == 'granted':
         keys = redis_db.keys(f"Granted:*:{ip}:*")
@@ -236,11 +238,12 @@ def erase_data():
         rejections.delete_many({'hashed_ip': hashed_ip})
     else:
         keys = []
+
     for key in keys:
         redis_db.delete(key)
 
     redis_db.delete(f"user:{ip}")
-    return redirect(url_for('index'))  
+    return redirect(url_for('index')) 
 
 
 @app.route('/granted_permission')
