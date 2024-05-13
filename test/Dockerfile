@@ -9,6 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY home.py /app
 
 COPY /templates /app/templates
+COPY /static /app/static
 
 ENV FLASK_APP=home.py
 
