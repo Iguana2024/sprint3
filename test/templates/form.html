@@ -1,9 +1,10 @@
+<!-- Ensure this file is saved as templates/form.html in your Flask project directory -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Permission</title>
+    <title>Subscribe to D&D Newsletter</title>
     <link
       rel="shortcut icon"
       href="{{ url_for('static', filename='/favicon.ico') }}"
@@ -15,52 +16,36 @@
       crossorigin="anonymous"
     />
     <style>
-      body {
-        background: rgb(0, 0, 0);
-        background: linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 1) 0%,
-          rgba(133, 184, 245, 1) 100%
-        );
-      }
-      .container_main {
-        background-color: #5d728b;
-      }
+        body {
+            background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(133, 184, 245, 1) 100%);
+            color: white;
+        }
+        .container {
+            background-color: #5d728b;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
     </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <h1 class="text-white">D&D Newsletter Subscription Form</h1>
-      <h2 class="text-white">Subscribe to Our D&D Newsletter!</h2>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label text-white"
-          >Email address</label
-        >
-        <input
-          type="email"
-          class="form-control"
-          id="exampleFormControlInput1"
-          placeholder="name@example.com"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label text-white"
-          >What aspects of D&D are you most interested in?</label
-        >
-        <textarea
-          class="form-control"
-          id="exampleFormControlTextarea1"
-          rows="3"
-        ></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label text-white"
-          >Experience Level</label
-        >
-        <input class="form-control" id="exampleFormControlInput2" />
-      </div>
-      <a href="/add_more_info" class="btn btn-success">Add</a>
-    </div>
-  </body>
+</head>
+<body>
+<div class="container">
+    <h1>D&D Newsletter Subscription Form</h1>
+    <form method="POST" action="/submit_form">
+        <div class="mb-3">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="interest">What aspects of D&D are you most interested in?</label>
+            <textarea class="form-control" id="interest" name="interest" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="level">Experience Level</label>
+            <input type="text" class="form-control" id="level" name="level" required>
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+    </form>
+</div>
+</body>
 </html>

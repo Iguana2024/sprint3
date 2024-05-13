@@ -9,17 +9,19 @@ import os
 import redis
 import json  
 
-# Initialize Flask app
+
 app = Flask(__name__)
 
-# Setup for Redis and MongoDB remains the same
-redis_host = os.getenv('REDIS_HOST', 'redis')
-redis_db = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
+redis_host = os.getenv('REDIS_HOST')
+redis_port = int(os.getenv('REDIS_PORT'))
+mongodb_uri = os.getenv('MONGODB_URI')
+redis_db = redis.Redis(host=redis_host, port=redis_port, db=0, decode_responses=True)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
-mongo_client = MongoClient('mongodb://mongodb:27017/')
+mongo_client = MongoClient(mongodb_uri)
 db = mongo_client['data_storage']
 permissions = db['permissions']
 rejections = db['rejections']
+information = db['information']  
 
 @app.route('/favicon.ico')
 def favicon():
@@ -118,6 +120,43 @@ def process():
         return process_grant_request(ip)
     elif request.form.get('reject'):
         return process_reject_request(ip)
+    
+
+
+@app.route('/submit_form', methods=['POST'])
+def submit_form():
+    email = request.form.get('email')
+    interest = request.form.get('interest')
+    level = request.form.get('level')
+    ip = request.remote_addr  # user ip as unique ident
+
+    datetime_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    user_data = {
+        'ID': ip,  # user ip as unique ident
+        'email': email,
+        'interest': interest,
+        'level': level,
+        'datetime': datetime_now
+    }
+    
+    # push user info to information collection
+    insert_result = information.insert_one(user_data)
+
+    # Retrieve the inserted document with ObjectID converted to string
+    user_data = information.find_one({'_id': insert_result.inserted_id})
+    user_data['_id'] = str(user_data['_id'])  # Convert ObjectId to string
+
+    # CHAT GPT Serialize data for Redis and store it
+    redis_data = json.dumps(user_data)
+    redis_db.set(f"user:{ip}", redis_data)
+
+    return redirect(url_for('granted_permission'))
+
+
+
+
+
 
 def process_grant_request(ip):
     """
@@ -142,6 +181,7 @@ def process_grant_request(ip):
         'datetime': datetime_now,
         'description': 'Granted access'
     })
+    #CHAT GPT
     redis_db.set(f"Granted:{unique_id}:{ip}:{datetime_now}", json.dumps(permission_data))
     return redirect(url_for('granted_permission'))
 
@@ -248,4 +288,6 @@ def db():
         return f'Failed to connect to MongoDB: {info}'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0') 
+    app.run(host='0.0.0.0', debug=True)
+
+
