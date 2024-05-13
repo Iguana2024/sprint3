@@ -29,7 +29,12 @@ jobs:
         
       - name: Build the stack
         run: docker compose up -d
-        working-directory: test  
+        working-directory: test 
+        env:
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }} 
 
       - name: Check if docker-compose has the service 'web'
         run: docker compose ps --services | grep web || true
