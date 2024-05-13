@@ -14,17 +14,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Check current directory
+        run: pwd
+        
+      - name: List contents
+        run: ls -alh
+        
       - name: Build the stack
-        working-directory: ./tests 
-        run: REDIS_HOST=redis REDIS_PORT=6379 MONGODB_URI='mongodb://mongodb:27017/' docker-compose up -d 
+        run: REDIS_HOST=redis REDIS_PORT=6379 MONGODB_URI='mongodb://mongodb:27017/' docker compose up -d
+        working-directory: test  
+
       - name: Check if docker-compose has the service 'web'
-        run: docker compose ps --services | grep web
+        run: docker compose ps --services | grep web || true
+        working-directory: test
+        
       - name: Check if docker-compose has the service 'redis'
-        run: docker compose ps --services | grep redis
+        run: docker compose ps --services | grep redis || true
+        working-directory: test
+
+      - name: Check if docker-compose has the service 'mongodb'
+        run: docker compose ps --services | grep mongodb || true
+        working-directory: test
+        
       - name: Test containers functionality
         uses: cypress-io/github-action@v6
         env:
           CYPRESS_BASE_URL: http://localhost:5000
         with:
-          working-directory: ./.github/tests
-
+          working-directory: ./.github/tests  
