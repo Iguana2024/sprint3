@@ -212,7 +212,7 @@ def process_reject_request(ip):
 
 @app.route('/erase_data')
 def erase_data():
-        """
+    """
     Remove user data based on their decision.
     This function retrieves the user's IP address, hashes it, and determines their previous decision (granted or rejected).
     If the user was granted access, it deletes their permission record from the permissions collection in the database
