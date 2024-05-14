@@ -1,5 +1,5 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "IdentityCrumb Application API",
     "description": "API documentation for the IdentityCrumb Application.",
@@ -10,6 +10,8 @@
       "get": {
         "summary": "Render home page or redirect",
         "description": "",
+        "operationId": "renderHomePage",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -23,6 +25,9 @@
     "/granted_permission": {
       "get": {
         "summary": "Render granted permission page",
+        "description": "",
+        "operationId": "renderGrantedPermissionPage",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -36,6 +41,9 @@
     "/rejected_permission": {
       "get": {
         "summary": "Render rejected permission page",
+        "description": "",
+        "operationId": "renderRejectedPermissionPage",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -49,6 +57,9 @@
     "/form": {
       "get": {
         "summary": "Render form page",
+        "description": "",
+        "operationId": "renderFormPage",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -63,6 +74,8 @@
       "post": {
         "summary": "Process permission request",
         "description": "",
+        "operationId": "processPermissionRequest",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -77,6 +90,8 @@
       "get": {
         "summary": "Erase user data",
         "description": "",
+        "operationId": "eraseUserData",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -91,6 +106,8 @@
       "get": {
         "summary": "Retrieve user data",
         "description": "",
+        "operationId": "retrieveUserData",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -104,6 +121,9 @@
     "/db": {
       "get": {
         "summary": "Check MongoDB connection",
+        "description": "",
+        "operationId": "checkMongoDBConnection",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful Operation"
@@ -114,5 +134,8 @@
         }
       }
     }
+  },
+  "components": {
+    "schemas": {}
   }
 }
