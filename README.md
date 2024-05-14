@@ -18,6 +18,8 @@
     * [Docker](#docker)
     * [Nginx](#nginx)
     * [Templates](#templates)
+    * [Tests](#templates)
+    * [Static](#templates)
   * [For Local Environment](#for-local-environment)
     * [Folder Structure (`/test/`)](#folder-structure-test)
 * [Troubleshooting Guide](#troubleshooting-guide)
@@ -63,6 +65,8 @@ The IdentityCrumb Application allows visitors to make informed decisions about s
 - **AWS EC2:** Providing scalable computing capacity in the cloud for hosting the deployed application.
 - **CERT-Bot:** Automating the process of obtaining SSL certificates, ensuring secure communication between the web server and clients.
 - **Git Actions:** Automating tasks and workflows in the software development process, enhancing code quality and deployment efficiency.
+- **Swagger:** Used for API documentation and testing.
+- **Unittest:** Python's built-in unit testing framework for testing application functionality.
 
 ## Requirements
 IdentityCrumb Application requires Docker Engine`s latest version
@@ -143,7 +147,7 @@ sudo systemctl status docker
 
 4. Run application:
 ```
-docker-compose up
+REDIS_HOST=Your_Host REDIS_PORT=Your_Port REDIS_PASS=Your_Pass MONGO_USER=Your_User MONGO_PASS=Your_Pass MONGO_DB=Your_Db MONGODB_URI=Your_URI docker-compose up -d
 ```
 
 5. Access the application in a web browser at `http://localhost:5000`
@@ -169,6 +173,14 @@ docker-compose up
 - **home.html** serves as the main page of the application, where users are presented with the choice to grant or reject permission to store data.
 - **granted_permission.html** is displayed when a user grants permission to store their data, providing acknowledgment of their choice.
 - **rejected_permission.html** is displayed when a user rejects permission to store their data, confirming their decision and privacy rights.
+- **form.html** is displayed when a user click on adding more information.
+
+#### Tests
+- **test_home.py** serves as the page of the unit test implementation.
+
+#### Static
+- **favicon.ico** serves as favicon of the application.
+- **swagger.json** is displayed when a user grants permission to store their data, providing acknowledgment of their choice.
 
 ### For Local Environment
 #### Folder Structure (/test/)
@@ -177,6 +189,8 @@ docker-compose up
   - **docker-compose.yml** specifies Docker services and configurations for local deployment.
   - **requirements.txt** lists necessary dependencies for running the application locally.
   - **Templates** includes HTML templates required for rendering application pages locally.
+  - **/static/** folder includes swagger.json and other static files, such as favicon.
+  - **/tests/** folder includes files for unit test, such as test_home.py.
 
 ## Troubleshooting Guide
 This section provides troubleshooting steps for common issues that may arise during setup or usage of the project.
@@ -187,6 +201,7 @@ This section provides troubleshooting steps for common issues that may arise dur
   - **Review Dockerfile:** Ensure all necessary dependencies are properly specified and installed.
   - **Permissions:** Make sure you have the necessary permissions to build and run Docker containers. You may need to run Docker commands with `sudo` or ensure your user is part of the Docker group.
   - **Ports configuration:** Ensure there are no conflicts with network configurations, especially if using custom network settings in `docker-compose.yml`.
+  - **Command is not recognized:** Try use Git Bash to run command properly.
 
 
 ### Python dependency issues
