@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "IdentityCrumb Application API",
+    "description": "API documentation for the IdentityCrumb Application.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Render home page or redirect",
+        "description": "",
+        "operationId": "renderHomePage",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/granted_permission": {
+      "get": {
+        "summary": "Render granted permission page",
+        "description": "",
+        "operationId": "renderGrantedPermissionPage",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/rejected_permission": {
+      "get": {
+        "summary": "Render rejected permission page",
+        "description": "",
+        "operationId": "renderRejectedPermissionPage",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/form": {
+      "get": {
+        "summary": "Render form page",
+        "description": "",
+        "operationId": "renderFormPage",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/process": {
+      "post": {
+        "summary": "Process permission request",
+        "description": "",
+        "operationId": "processPermissionRequest",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/erase_data": {
+      "get": {
+        "summary": "Erase user data",
+        "description": "",
+        "operationId": "eraseUserData",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/get_data": {
+      "get": {
+        "summary": "Retrieve user data",
+        "description": "",
+        "operationId": "retrieveUserData",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/db": {
+      "get": {
+        "summary": "Check MongoDB connection",
+        "description": "",
+        "operationId": "checkMongoDBConnection",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

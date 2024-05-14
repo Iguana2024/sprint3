@@ -8,9 +8,23 @@ import uuid
 import os
 import redis
 import json  
-
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
+
+# SWAGGER BEGIN
+SWAGGER_URL="/api"
+API_URL="/static/swagger.json"
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': 'IdentityCrumb API'
+    }
+)
+app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+# SWAGGER END
 
 redis_host = os.getenv('REDIS_HOST')
 redis_port = int(os.getenv('REDIS_PORT'))
