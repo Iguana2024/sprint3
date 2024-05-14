@@ -16,6 +16,7 @@ services:
       REDIS_PORT: ${REDIS_PORT}
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       MONGODB_URI: ${MONGODB_URI}
+      REDIS_PASS: ${REDIS_PASS}
     depends_on:
       - mongodb
 
@@ -28,6 +29,10 @@ services:
       - '27017'
     volumes:
       - ./mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
+      - MONGO_INITDB_DATABASE=${MONGO_DB}
 
   redis:
     image: redis:6.2-alpine
@@ -36,6 +41,9 @@ services:
       - back
     expose:
       - "6379"
+    command: redis-server --save 60 1 --loglevel warning --requirepass ${REDIS_PASS}
+    volumes: 
+      - ./data:/data
 
 networks:
   front:
